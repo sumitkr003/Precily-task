@@ -1,0 +1,44 @@
+<% include partials/header %>
+
+<br><br>
+<div class="container heading text-center"> <h2> Search Nearby Places </h2> </div>
+
+<div class="container">
+    <br>
+    <form action="/search" method="POST" id="form">
+        <div class="row">
+            <div class="col-sm-10">
+                <input type="text" name="tag" class="form-control" placeholder="Search Nearby" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <div class="col-sm-2">
+                <button class="btn btn-primary" id="search">
+                    Search
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<br>
+<% if (places != undefined) { %>
+<div class="container">
+    <div class="row">
+        <% places.forEach(function (place) { %>
+        <div class="col-md-4">
+            <br>
+            <div class="card bg-light" style="width: 18rem;">
+                <div class="card-body">
+                    <img src=<%= place.icon %> class="card-img-top" alt="..." id="icon">
+                    <h5 class="card-title"> <%= place.name %> </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Vicinity : <%= place.vicinity %></h6>
+                </div>
+            </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div id="map"> </div>
+            </div>
+        </div>
+        <%})%>
+    </div>
+</div>
+<% } %>
+<% include partials/footer %>

@@ -1,0 +1,24 @@
+</body>
+
+<Script src = "https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></Script>
+<script>
+
+    window.onload =function location(){
+        var socket = io();
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+
+        function showPosition(position)
+        {
+//            console.log(position.coords.latitude + " " + position.coords.longitude);
+            socket.emit('SendLocation',{
+                latitude : position.coords.latitude,
+                longitude : position.coords.longitude
+            });
+        }
+    }
+
+
+</script>
+</html>
