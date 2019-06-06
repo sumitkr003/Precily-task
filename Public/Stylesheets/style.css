@@ -6,3 +6,11 @@
     height: 100px;
     width: 100px;
 }
+
+.ui .action .input{
+    width: 100%;
+}
+
+p{
+    font-family: 'Montserrat', sans-serif;
+}

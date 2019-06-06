@@ -1,44 +1,53 @@
 <% include partials/header %>
 
 <br><br>
-<div class="container heading text-center"> <h2> Search Nearby Places </h2> </div>
 
 <div class="container">
     <br>
     <form action="/search" method="POST" id="form">
         <div class="row">
-            <div class="col-sm-10">
-                <input type="text" name="tag" class="form-control" placeholder="Search Nearby" aria-label="Username" aria-describedby="basic-addon1">
-            </div>
-            <div class="col-sm-2">
-                <button class="btn btn-primary" id="search">
-                    Search
-                </button>
+            <div class="col-sm-8"> <div class="container heading"> <h2> Search Nearby Places </h2> </div></div>
+            <div class="col-sm-4">
+                <div class="ui action input">
+                    <input type="text" placeholder="Search...">
+                    <button class="ui icon button">
+                        <i class="search icon"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </form>
 </div>
 
+<% if(results.err){ %>
 <br>
-<% if (places != undefined) { %>
+<div class="alert alert-danger container text-center" role="alert">
+    No response for your search query. Try Again Later or Search different tags.
+</div>
+<% } %>
+
+<br>
+<% if (results.places != undefined) { %>
 <div class="container">
     <div class="row">
-        <% places.forEach(function (place) { %>
-        <div class="col-md-4">
+        <% results.places.forEach(function (place) { %>
+        <div class="col-lg-4 col-md-6 col-sm-12">
             <br>
-            <div class="card bg-light" style="width: 18rem;">
-                <div class="card-body">
-                    <img src=<%= place.icon %> class="card-img-top" alt="..." id="icon">
-                    <h5 class="card-title"> <%= place.name %> </h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Vicinity : <%= place.vicinity %></h6>
+            <div class="ui card">
+                <div class="image mx-auto d-block">
+                    <img src = <%= place.icon %> class="mx-auto d-block" id="icon">
                 </div>
-            </div>
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div id="map"> </div>
+                <div class="content">
+                    <a class="header" href=""><%= place.name %></a>
+                    <div class="description">
+                        <h6> Near By: </h6> <%= place.vicinity %>
+                    </div>
+                </div>
             </div>
         </div>
         <%})%>
     </div>
 </div>
 <% } %>
+
 <% include partials/footer %>

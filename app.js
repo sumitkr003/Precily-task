@@ -14,19 +14,30 @@ var position = {
     longitude : ""
 }
 
-var places = []
+var error = false;
+
+var result = {
+    places : [],
+    err : false
+}
 
 app.get('/',function (req,res) {
-    res.render("home", { places : places });
+    res.render("home", { results : result });
 })
 
 app.post('/search',function (req,res) {
     var url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + position.latitude + "," + position.longitude + "&radius=1500&type=" + req.body.tag + "&key=AIzaSyBwxLBgMZMoGgoS_xoQYteJoDY8mkXhJJ4";
+
     request(url, function(error, response, body){
         if(!error && response.statusCode == 200){
             var data = JSON.parse(body);
             var results = data.results;
-            places = results;
+            result.places = results;
+            if(results[0] == undefined){
+                result.err = true;
+            }else{
+                result.err = false;
+            }
             res.redirect('/');
         }else{
             console.log(error);
